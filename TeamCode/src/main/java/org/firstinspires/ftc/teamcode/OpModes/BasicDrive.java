@@ -50,7 +50,7 @@ import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@TeleOp(name="BasicDrive", group="BasicOpModes")
 @Disabled
 public class BasicDrive extends LinearOpMode {
 
