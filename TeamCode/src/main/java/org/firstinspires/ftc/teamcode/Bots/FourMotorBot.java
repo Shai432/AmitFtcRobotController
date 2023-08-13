@@ -1,55 +1,65 @@
 package org.firstinspires.ftc.teamcode.Bots;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
 
-public class FourMotorBot {
+public abstract class FourMotorBot extends BotBase{
 
+    // Motors Declaration:
     protected DcMotor leftFrontDrive = null;
     protected DcMotor rightFrontDrive = null;
     protected DcMotor leftBackDrive = null;
     protected DcMotor rightBackDrive = null;
 
-    protected Telemetry telemetry;
+    //----------------------
 
+
+    // Empty constructor:
 
     public FourMotorBot(){}
 
-    public void InitializeBot(HardwareMap hwMap,Telemetry telemetry)
+    public FourMotorBot(HardwareMap hwMap,Telemetry telemetry, IBotAction botAction)
     {
         this.telemetry = telemetry;
-        getMotors(hwMap);
-        setDirections();
+        this.hardwareMap = hwMap;
+        this.botAction = botAction;
+        this.InitializeBot();
     }
 
-    // sets motors power.
-    public void move(Gamepad gamepad)
+    public void SetTelemetry(String caption, String format, Object... args)
     {
-        // Setup a variable for each drive wheel to save power level for telemetry
-        double leftPower;
-        double rightPower;
+        this.telemetry.addData(caption, format, args);
+    }
 
-        double drive = -gamepad.left_stick_y;
-        double turn  =  gamepad.right_stick_x;
+    public void SetTelemetry(String caption, Object... args)
+    {
+        this.telemetry.addData(caption, args);
+    }
 
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+    public void TelemetryApply()
+    {
+        this.telemetry.update();
+    }
 
+    public void setPowerOnMotors(double rightPower, double leftPower)
+    {
         leftBackDrive.setPower(leftPower);
         leftFrontDrive.setPower(leftPower);
         rightBackDrive.setPower(rightPower);
         rightFrontDrive.setPower(rightPower);
+    }
 
-        telemetry.addData("Motors", "left (%.2f)", leftPower);
-        telemetry.addData("Motors", "right (%.2f)", rightPower);
+    private void InitializeBot()
+    {
+        InitializeMotors(this.hardwareMap);
+        setDirections();
     }
 
     // Initialize Motors from hw data.
-    private void getMotors(HardwareMap hwMap)
+    private void InitializeMotors(HardwareMap hwMap)
     {
         leftBackDrive = hwMap.get(DcMotor.class, Globals.BACK_MOTOR_L);
         leftFrontDrive = hwMap.get(DcMotor.class, Globals.FRONT_MOTOR_L);
@@ -65,7 +75,4 @@ public class FourMotorBot {
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
     }
-
-
-
 }

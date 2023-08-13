@@ -30,11 +30,14 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeBase;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.BotActions.GamePadDrive;
+import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
 import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
+import org.firstinspires.ftc.teamcode.Bots.TeleopBot;
 
 
 /**
@@ -52,19 +55,29 @@ import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
 
 @TeleOp(name="BasicDrive", group="BasicOpModes")
 @Disabled
-public class BasicDrive extends LinearOpMode {
+public class BasicDrive extends OpModeBase {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
-    private FourMotorBot robot = new FourMotorBot();
+    private FourMotorBot robot;
+
+    private IBotAction botAction;
+
+    // ------------------------------ //
+    // ---------- INIT -------------- //
+    // Called once when pressing INIT //
+    @Override
+    public void init() {
+        super.init();
+        this.robot = new TeleopBot();
+        this.botAction = new GamePadDrive(this.robot ,this.gamepad1);
+    }
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-        robot.InitializeBot(this.hardwareMap,this.telemetry);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -81,7 +94,7 @@ public class BasicDrive extends LinearOpMode {
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
 
-            robot.move(gamepad1);
+            this.botAction.DriveRobot();
 
             telemetry.update();
         }
