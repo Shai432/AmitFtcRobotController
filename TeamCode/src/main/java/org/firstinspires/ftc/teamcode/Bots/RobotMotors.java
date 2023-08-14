@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Bots;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
 import org.firstinspires.ftc.teamcode.internals.HardwareHandler;
 
 public class RobotMotors implements IRobComponent {
@@ -35,10 +34,18 @@ public class RobotMotors implements IRobComponent {
         rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void setPowerOnAllMotors(double rightPower, double leftPower)
+    public void setPowerOnRLMotors(double rightPower, double leftPower)
     {
          this.setPowerOnLeftMotors(leftPower);
          this.setPowerOnRightMotors(rightPower);
+    }
+
+    public void setPowerOnAllMotors(double FR, double FL, double BR, double BL)
+    {
+        rightFrontMotor.setPower(FR);
+        leftFrontMotor.setPower(FL);
+        rightBackMotor.setPower(BR);
+        leftBackMotor.setPower(BL);
     }
 
     public void setPowerOnRightMotors(double rightPower)

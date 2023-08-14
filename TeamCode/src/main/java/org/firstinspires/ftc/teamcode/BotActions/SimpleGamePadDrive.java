@@ -32,7 +32,7 @@ public class SimpleGamePadDrive implements ITeleopAction{
 
         double rightPower = Range.clip(drive - turn, -1.0, 1.0) ;
 
-        this.motors.setPowerOnAllMotors(rightPower, leftPower);
+        this.motors.setPowerOnRLMotors(rightPower, leftPower);
 
     }
 }
