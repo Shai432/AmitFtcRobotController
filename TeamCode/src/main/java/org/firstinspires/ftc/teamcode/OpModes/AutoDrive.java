@@ -26,7 +26,6 @@ public class AutoDrive extends OpModeBase {
         super.init();
         this.botAction = new AutoDriveByTime();
         this.robot = new Robot(this.botAction);
-        this.botAction.InitializeComponents(this.robot.motors);
     }
 
     @Override

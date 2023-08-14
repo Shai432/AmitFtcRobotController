@@ -7,6 +7,7 @@ public class Robot extends FourMotorBot
     public Robot(IBotAction teleopAction)
     {
         this.botAction = teleopAction;
+        this.botAction.InitializeComponents(this.motors);
     }
     @Override
     public void DriveRobot()

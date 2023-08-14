@@ -74,7 +74,6 @@ public class BasicOpMode extends OpModeBase {
         super.init();
         this.botAction = new SimpleGamePadDrive(this.gamepad1);
         this.robot = new Robot(this.botAction);
-        this.botAction.InitializeComponents(this.robot.motors);
     }
 
     @Override
