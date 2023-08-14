@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.BotActions;
 
-import java.sql.Driver;
+import org.firstinspires.ftc.teamcode.Bots.IRobComponent;
+import org.firstinspires.ftc.teamcode.Bots.RobotMotors;
 
 public interface IBotAction {
-    public void DriveRobot();
+    public void InitializeComponents(IRobComponent component);
+
+    public void Run();
 }

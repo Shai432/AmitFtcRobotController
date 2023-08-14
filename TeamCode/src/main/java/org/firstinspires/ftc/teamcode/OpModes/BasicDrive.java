@@ -34,10 +34,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeBase;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.BotActions.GamePadDrive;
-import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
+import org.firstinspires.ftc.teamcode.BotActions.SimpleGamePadDrive;
+import org.firstinspires.ftc.teamcode.BotActions.ITeleopAction;
 import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
-import org.firstinspires.ftc.teamcode.Bots.TeleopBot;
+import org.firstinspires.ftc.teamcode.Bots.Robot;
+import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
 
 /**
@@ -62,7 +63,7 @@ public class BasicDrive extends OpModeBase {
 
     private FourMotorBot robot;
 
-    private IBotAction botAction;
+    private ITeleopAction botAction;
 
     // ------------------------------ //
     // ---------- INIT -------------- //
@@ -70,14 +71,15 @@ public class BasicDrive extends OpModeBase {
     @Override
     public void init() {
         super.init();
-        this.robot = new TeleopBot();
-        this.botAction = new GamePadDrive(this.robot ,this.gamepad1);
+        this.botAction = new SimpleGamePadDrive(this.gamepad1);
+        this.robot = new Robot(this.botAction);
+        this.botAction.InitializeComponents(this.robot.motors);
     }
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        TelemetryHandler.logData("Status", "Initialized");
+        TelemetryHandler.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -92,11 +94,11 @@ public class BasicDrive extends OpModeBase {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
 
-            this.botAction.DriveRobot();
+            this.robot.DriveRobot();
 
-            telemetry.update();
+            TelemetryHandler.update();
         }
     }
 }

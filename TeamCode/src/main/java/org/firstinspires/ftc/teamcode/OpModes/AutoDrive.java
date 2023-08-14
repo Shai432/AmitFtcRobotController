@@ -4,10 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.BotActions.BasicAutoDrive;
+import org.firstinspires.ftc.teamcode.BotActions.AutoDriveByTime;
 import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
 import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
-import org.firstinspires.ftc.teamcode.Bots.TeleopBot;
+import org.firstinspires.ftc.teamcode.Bots.Robot;
+import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
 @Autonomous(name="Robot: basic auto drive", group="Robot")
 public class AutoDrive extends OpModeBase {
@@ -23,14 +24,15 @@ public class AutoDrive extends OpModeBase {
     @Override
     public void init() {
         super.init();
-        this.robot = new TeleopBot();
-        this.botAction = new BasicAutoDrive(this.robot);
+        this.botAction = new AutoDriveByTime();
+        this.robot = new Robot(this.botAction);
+        this.botAction.InitializeComponents(this.robot.motors);
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        TelemetryHandler.logData("Status", "Initialized");
+        TelemetryHandler.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -44,10 +46,10 @@ public class AutoDrive extends OpModeBase {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            this.botAction.DriveRobot();
-            telemetry.addData("Time", "Drive Time = (%.2f)" ,runtime.time());
-            telemetry.update();
+            TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
+            this.botAction.Run();
+            TelemetryHandler.logData("Time", "Drive Time = (%.2f)" ,runtime.time());
+            TelemetryHandler.update();
         }
     }
 }

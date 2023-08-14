@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryInternal;
 import org.firstinspires.ftc.robotcore.internal.system.Assert;
+import org.firstinspires.ftc.teamcode.internals.HardwareHandler;
+import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
 /**
  * Base class for user defined linear operation modes (op modes).
@@ -153,7 +155,10 @@ public abstract class OpModeBase extends OpMode {
     }
 
     // Prevent the non-Linear OpMode methods from being overridden
-    @Override public void init() { }
+    @Override public void init() {
+        TelemetryHandler.InitializeTelemetry(this.telemetry);
+        HardwareHandler.InitializeHardwareMap(this.hardwareMap);
+    }
     @Override final public void init_loop() { }
     @Override final public void start() { }
     @Override final public void loop() { }
