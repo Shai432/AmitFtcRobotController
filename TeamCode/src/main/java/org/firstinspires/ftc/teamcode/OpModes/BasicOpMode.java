@@ -29,8 +29,6 @@
 
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpModeBase;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -39,6 +37,7 @@ import org.firstinspires.ftc.teamcode.BotActions.SimpleGamePadDrive;
 import org.firstinspires.ftc.teamcode.BotActions.ITeleopAction;
 import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
 import org.firstinspires.ftc.teamcode.Bots.Robot;
+import org.firstinspires.ftc.teamcode.internals.OpModeBase;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
 
@@ -56,7 +55,6 @@ import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
  */
 
 @TeleOp(name="BasicDrive", group="BasicOpModes")
-@Disabled
 public class BasicOpMode extends OpModeBase {
 
     // Declare OpMode members.
@@ -66,39 +64,17 @@ public class BasicOpMode extends OpModeBase {
 
     private IBotAction botAction;
 
-    // ------------------------------ //
-    // ---------- INIT -------------- //
-    // Called once when pressing INIT //
+
     @Override
-    public void init() {
-        super.init();
-        this.botAction = new SimpleGamePadDrive(this.gamepad1);
-        this.robot = new Robot(this.botAction);
+    public void run() {
+        TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
+        this.robot.DriveRobot();
+        TelemetryHandler.update();
     }
 
     @Override
-    public void runOpMode() {
-        TelemetryHandler.logData("Status", "Initialized");
-        TelemetryHandler.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-        runtime.reset();
-
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
-
-            // Show the elapsed game time and wheel power.
-            TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
-
-            this.robot.DriveRobot();
-
-            TelemetryHandler.update();
-        }
+    public void customInit() {
+        this.botAction = new SimpleGamePadDrive(this.gamepad1);
+        this.robot = new Robot(this.botAction);
     }
 }

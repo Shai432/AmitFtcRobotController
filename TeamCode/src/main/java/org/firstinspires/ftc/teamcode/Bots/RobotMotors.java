@@ -21,7 +21,7 @@ public class RobotMotors implements IRobComponent {
         leftBackMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.BACK_MOTOR_L);
         leftFrontMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.FRONT_MOTOR_L);
         rightBackMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.BACK_MOTOR_R);
-        rightFrontMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.BACK_MOTOR_R);
+        rightFrontMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.FRONT_MOTOR_R);
         this.setDirections();
     }
 
