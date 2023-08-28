@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class HardwareHandler {
     private static HardwareMap hwMap;
 
-    public static void InitializeHardwareMap(HardwareMap hwMap)
+    public static void InitializeHardwareMap(HardwareMap srcHwMap)
     {
-        hwMap = hwMap;
+        hwMap = srcHwMap;
     }
 
     public static  <T> T GetHardwareItem(Class<? extends T> classOrInterface, String deviceName)
