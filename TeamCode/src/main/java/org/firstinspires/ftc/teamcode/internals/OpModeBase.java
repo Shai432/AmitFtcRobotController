@@ -3,9 +3,14 @@ package org.firstinspires.ftc.teamcode.internals;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.MotionRunner.IMotionRunner;
+import org.firstinspires.ftc.teamcode.MotionRunner.MotionRunner;
+
 public abstract class OpModeBase extends LinearOpMode {
 
     public ElapsedTime runtime = new ElapsedTime();
+
+    public IMotionRunner motionRunner;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -41,6 +46,7 @@ public abstract class OpModeBase extends LinearOpMode {
     {
         TelemetryHandler.InitializeTelemetry(this.telemetry);
         HardwareHandler.InitializeHardwareMap(this.hardwareMap);
+        this.motionRunner = new MotionRunner();
         this.customInit();
     };
 

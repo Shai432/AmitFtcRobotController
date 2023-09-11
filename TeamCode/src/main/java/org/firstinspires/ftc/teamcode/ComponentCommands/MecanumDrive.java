@@ -1,25 +1,28 @@
-package org.firstinspires.ftc.teamcode.BotActions;
+package org.firstinspires.ftc.teamcode.ComponentCommands;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Bots.IRobComponent;
-import org.firstinspires.ftc.teamcode.Bots.RobotMotors;
+import org.firstinspires.ftc.teamcode.Components.IRobotComponent;
+import org.firstinspires.ftc.teamcode.Components.RobotMotors;
 
 public class MecanumDrive implements ITeleopAction{
     protected Gamepad gamepad;
 
     protected RobotMotors motors;
 
-
-    public MecanumDrive(Gamepad gamepad)
+    public MecanumDrive()
     {
-        this.gamepad = gamepad;
+    }
+
+    public MecanumDrive(IRobotComponent component)
+    {
+        this.InitializeComponents(component);
     }
 
     @Override
-    public void InitializeComponents(IRobComponent component) {
+    public IComponentCommand InitializeComponents(IRobotComponent component) {
         this.motors = (RobotMotors) component;
-
+        return this;
     }
 
     @Override
@@ -39,5 +42,11 @@ public class MecanumDrive implements ITeleopAction{
 
         this.motors.setPowerOnAllMotors(frontRightPower,frontLeftPower,backRightPower,backLeftPower);
 
+    }
+
+    @Override
+    public ITeleopAction SetSource(Gamepad gamepad) {
+        this.gamepad = gamepad;
+        return this;
     }
 }

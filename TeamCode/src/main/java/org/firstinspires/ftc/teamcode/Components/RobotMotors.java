@@ -1,27 +1,30 @@
-package org.firstinspires.ftc.teamcode.Bots;
+package org.firstinspires.ftc.teamcode.Components;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.internals.Globals;
 import org.firstinspires.ftc.teamcode.internals.HardwareHandler;
 
-public class RobotMotors implements IRobComponent {
+public class RobotMotors implements IRobotComponent {
     // Motors Declaration:
-    protected DcMotor leftFrontMotor = null;
-    protected DcMotor rightFrontMotor = null;
-    protected DcMotor leftBackMotor = null;
-    protected DcMotor rightBackMotor = null;
+    protected DcMotorEx leftFrontMotor = null;
+    protected DcMotorEx rightFrontMotor = null;
+    protected DcMotorEx leftBackMotor = null;
+    protected DcMotorEx rightBackMotor = null;
 
     public RobotMotors()
     {
-        this.InitializeMotors();
+        this.Init();
     }
 
-    private void InitializeMotors()
+    @Override
+    public void Init()
     {
-        leftBackMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.BACK_MOTOR_L);
-        leftFrontMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.FRONT_MOTOR_L);
-        rightBackMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.BACK_MOTOR_R);
-        rightFrontMotor = HardwareHandler.GetHardwareItem(DcMotor.class, Globals.FRONT_MOTOR_R);
+        leftBackMotor = HardwareHandler.GetHardwareItem(DcMotorEx.class, Globals.BACK_MOTOR_L);
+        leftFrontMotor = HardwareHandler.GetHardwareItem(DcMotorEx.class, Globals.FRONT_MOTOR_L);
+        rightBackMotor = HardwareHandler.GetHardwareItem(DcMotorEx.class, Globals.BACK_MOTOR_R);
+        rightFrontMotor = HardwareHandler.GetHardwareItem(DcMotorEx.class, Globals.FRONT_MOTOR_R);
         this.setDirections();
     }
 

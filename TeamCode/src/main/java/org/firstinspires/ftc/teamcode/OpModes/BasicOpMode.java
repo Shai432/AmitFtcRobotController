@@ -32,11 +32,8 @@ package org.firstinspires.ftc.teamcode.OpModes;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
-import org.firstinspires.ftc.teamcode.BotActions.SimpleGamePadDrive;
-import org.firstinspires.ftc.teamcode.BotActions.ITeleopAction;
-import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
-import org.firstinspires.ftc.teamcode.Bots.Robot;
+import org.firstinspires.ftc.teamcode.ComponentCommands.SimpleGamePadDrive;
+import org.firstinspires.ftc.teamcode.Components.RobotMotors;
 import org.firstinspires.ftc.teamcode.internals.OpModeBase;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
@@ -60,21 +57,16 @@ public class BasicOpMode extends OpModeBase {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
-    private FourMotorBot robot;
-
-    private IBotAction botAction;
-
-
     @Override
     public void run() {
         TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
-        this.robot.DriveRobot();
+        this.motionRunner.Run();
         TelemetryHandler.update();
     }
 
     @Override
     public void customInit() {
-        this.botAction = new SimpleGamePadDrive(this.gamepad1);
-        this.robot = new Robot(this.botAction);
+        this.motionRunner.Add(new SimpleGamePadDrive(new RobotMotors())
+                         .SetSource(this.gamepad1));
     }
 }

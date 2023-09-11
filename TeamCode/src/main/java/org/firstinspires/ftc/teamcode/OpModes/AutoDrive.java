@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode.OpModes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.BotActions.AutoDriveByTime;
-import org.firstinspires.ftc.teamcode.BotActions.IBotAction;
-import org.firstinspires.ftc.teamcode.Bots.FourMotorBot;
-import org.firstinspires.ftc.teamcode.Bots.Robot;
+import org.firstinspires.ftc.teamcode.ComponentCommands.AutoDriveByTime;
+import org.firstinspires.ftc.teamcode.MotionRunner.MotionRunner;
 import org.firstinspires.ftc.teamcode.internals.OpModeBase;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
@@ -15,8 +13,6 @@ public class AutoDrive extends OpModeBase {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private FourMotorBot robot;
-    private IBotAction botAction;
 
     // ------------------------------ //
     // ---------- INIT -------------- //
@@ -27,7 +23,7 @@ public class AutoDrive extends OpModeBase {
 
         // Show the elapsed game time and wheel power.
         TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
-        this.botAction.Run();
+        this.motionRunner.Run();
         TelemetryHandler.logData("Time", "Drive Time = (%.2f)" ,runtime.time());
         TelemetryHandler.update();
 
@@ -35,7 +31,6 @@ public class AutoDrive extends OpModeBase {
 
     @Override
     public void customInit() {
-        this.botAction = new AutoDriveByTime();
-        this.robot = new Robot(this.botAction);
+        this.motionRunner.Add(new AutoDriveByTime());
     }
 }

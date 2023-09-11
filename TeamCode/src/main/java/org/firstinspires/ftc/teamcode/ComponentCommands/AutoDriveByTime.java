@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.BotActions;
+package org.firstinspires.ftc.teamcode.ComponentCommands;
 
-import org.firstinspires.ftc.teamcode.Bots.IRobComponent;
-import org.firstinspires.ftc.teamcode.Bots.RobotMotors;
+import org.firstinspires.ftc.teamcode.Components.IRobotComponent;
+import org.firstinspires.ftc.teamcode.Components.RobotMotors;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 import org.firstinspires.ftc.teamcode.internals.Time;
 
@@ -13,9 +13,9 @@ public class AutoDriveByTime implements IAutonomusAction
     }
 
     @Override
-    public void InitializeComponents(IRobComponent component) {
-
+    public IComponentCommand InitializeComponents(IRobotComponent component) {
         this.motors = (RobotMotors) component;
+        return this;
 
     }
 

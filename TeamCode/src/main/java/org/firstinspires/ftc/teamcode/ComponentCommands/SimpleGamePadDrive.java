@@ -1,26 +1,25 @@
-package org.firstinspires.ftc.teamcode.BotActions;
+package org.firstinspires.ftc.teamcode.ComponentCommands;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Bots.IRobComponent;
-import org.firstinspires.ftc.teamcode.Bots.RobotMotors;
+import org.firstinspires.ftc.teamcode.Components.IRobotComponent;
+import org.firstinspires.ftc.teamcode.Components.RobotMotors;
 
 public class SimpleGamePadDrive implements ITeleopAction{
     protected Gamepad gamepad;
 
     protected RobotMotors motors;
 
-
-    public SimpleGamePadDrive(Gamepad gamepad)
+    public SimpleGamePadDrive(IRobotComponent component)
     {
-        this.gamepad = gamepad;
+        this.InitializeComponents(component);
     }
 
     @Override
-    public void InitializeComponents(IRobComponent component) {
+    public IComponentCommand InitializeComponents(IRobotComponent component) {
         this.motors = (RobotMotors) component;
-
+        return this;
     }
 
     @Override
@@ -34,5 +33,11 @@ public class SimpleGamePadDrive implements ITeleopAction{
 
         this.motors.setPowerOnRLMotors(rightPower, leftPower);
 
+    }
+
+    @Override
+    public ITeleopAction SetSource(Gamepad gamepad) {
+        this.gamepad = gamepad;
+        return this;
     }
 }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -12,8 +13,8 @@ import org.firstinspires.ftc.teamcode.Components.RobotMotors;
 import org.firstinspires.ftc.teamcode.internals.OpModeBase;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
-@TeleOp(name="MecanumOpMode", group="BasicOpModes")
-public class MecanumOpMode extends OpModeBase {
+@Autonomous(name="MecanumOpMode", group="BasicOpModes")
+public class AutonomousMecanumDrive extends OpModeBase {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -32,7 +33,7 @@ public class MecanumOpMode extends OpModeBase {
     @Override
     public void customInit() {
         this.motionRunner.Add(new MecanumDrive(new RobotMotors()).SetSource(this.gamepad1))
-                         .Add(new ClawMovement(new Claw()).SetSource(this.gamepad1))
-                         .Add(new ElevatorMovement(new Elevator()).SetSource(this.gamepad1));
+                .Add(new ClawMovement(new Claw()).SetSource(this.gamepad1))
+                .Add(new ElevatorMovement(new Elevator()).SetSource(this.gamepad1));
     }
 }
