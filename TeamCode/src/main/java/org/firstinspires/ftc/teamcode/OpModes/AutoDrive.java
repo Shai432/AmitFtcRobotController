@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.internals.OpModeBase;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
 @Autonomous(name="Robot: basic auto drive", group="Robot")
-public class AutoDrive extends OpModeBase {
+public class AutoDrive extends OpModeBase{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -20,13 +20,11 @@ public class AutoDrive extends OpModeBase {
 
     @Override
     public void run() {
-
         // Show the elapsed game time and wheel power.
         TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
         this.motionRunner.Run();
         TelemetryHandler.logData("Time", "Drive Time = (%.2f)" ,runtime.time());
         TelemetryHandler.update();
-
     }
 
     @Override

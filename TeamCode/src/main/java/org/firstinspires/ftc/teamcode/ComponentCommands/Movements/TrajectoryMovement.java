@@ -1,7 +1,12 @@
 package org.firstinspires.ftc.teamcode.ComponentCommands.Movements;
 
+
+import androidx.annotation.NonNull;
+
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+
 
 public class TrajectoryMovement implements IMovement{
     private Queue<IMovement> movementsSequence = new LinkedList<>();
@@ -11,7 +16,4 @@ public class TrajectoryMovement implements IMovement{
         this.movementsSequence.add(movement);
         return this;
     }
-
-
-
 }
