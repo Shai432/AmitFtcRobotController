@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.ComponentCommands.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Components.Claw;
 import org.firstinspires.ftc.teamcode.Components.Elevator;
 import org.firstinspires.ftc.teamcode.Components.RobotMotors;
+import org.firstinspires.ftc.teamcode.RoadRunner.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.internals.OpModeBase;
 import org.firstinspires.ftc.teamcode.internals.TelemetryHandler;
 
@@ -21,6 +23,8 @@ public class AutonomousMecanumDrive extends OpModeBase {
     private ElapsedTime runtime = new ElapsedTime();
     private Trajectory path;
 
+    private SampleMecanumDrive drive;
+
     private AutoMecanumDrive autoMecanumDriver;
 
     // ------------------------------ //
@@ -29,11 +33,26 @@ public class AutonomousMecanumDrive extends OpModeBase {
 
     public void SetAutoPath()
     {
+        // for now lets use as is, deep refactor is needed.
+        // mecanum preset;
+       this.drive = new SampleMecanumDrive(this.hardwareMap);
+
+        // build path:
+        this.path = drive.trajectoryBuilder(new Pose2d())
+                .forward(50)
+                .addDisplacementMarker( () ->
+                {
+                    // run actions here.
+                    // e.g -> elevator up / down etc
+                })
+                .build();
     }
 
     @Override
     public void run() {
         TelemetryHandler.logData("Status", "Run Time: " + runtime.toString());
+        // follow the path:
+        drive.followTrajectory(path);
         this.motionRunner.Run();
         TelemetryHandler.update();
     }
