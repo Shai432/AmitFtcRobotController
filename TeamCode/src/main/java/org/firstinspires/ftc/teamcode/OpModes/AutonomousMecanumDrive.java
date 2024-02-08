@@ -25,13 +25,15 @@ public class AutonomousMecanumDrive extends OpModeBase {
 
     private SampleMecanumDrive drive;
 
+    private Elevator elv;
+
     private AutoMecanumDrive autoMecanumDriver;
 
     // ------------------------------ //
     // ---------- INIT -------------- //
     // Called once when pressing INIT //
 
-    public void SetAutoPath()
+    private void SetAutoPath()
     {
         // for now lets use as is, deep refactor is needed.
         // mecanum preset;
@@ -59,6 +61,7 @@ public class AutonomousMecanumDrive extends OpModeBase {
 
     @Override
     public void customInit() {
+        this.elv = new Elevator();
         this.motionRunner.Add(new MecanumDrive(new RobotMotors()).SetSource(this.gamepad1))
                 .Add(new ClawMovement(new Claw()).SetSource(this.gamepad1))
                 .Add(new ElevatorMovement(new Elevator()).SetSource(this.gamepad1));

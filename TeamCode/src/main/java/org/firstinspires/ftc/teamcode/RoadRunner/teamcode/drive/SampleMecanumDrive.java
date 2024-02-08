@@ -34,6 +34,7 @@ import org.firstinspires.ftc.teamcode.RoadRunner.teamcode.trajectorysequence.Tra
 import org.firstinspires.ftc.teamcode.RoadRunner.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.RoadRunner.teamcode.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.RoadRunner.teamcode.util.LynxModuleUtil;
+import org.firstinspires.ftc.teamcode.internals.Globals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,10 +90,10 @@ public class SampleMecanumDrive extends MecanumDrive {
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, Globals.FRONT_MOTOR_L);
+        leftRear = hardwareMap.get(DcMotorEx.class, Globals.BACK_MOTOR_L);
+        rightRear = hardwareMap.get(DcMotorEx.class, Globals.BACK_MOTOR_R);
+        rightFront = hardwareMap.get(DcMotorEx.class, Globals.FRONT_MOTOR_R);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
@@ -113,6 +114,11 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
+
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();
         List<Integer> lastTrackingEncVels = new ArrayList<>();
